@@ -9,6 +9,7 @@
 #define IDR_PoolMonExTYPE               130
 #define IDI_NONPAGED                    310
 #define IDI_PAGED                       311
+#define IDR_POOLTAG                     314
 #define IDC_REFRESH                     1000
 #define ID_FILE_SAVE32771               32771
 #define ID_VIEW_REFRESH                 32772
@@ -24,8 +25,8 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32784
+#define _APS_NEXT_RESOURCE_VALUE        315
+#define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1003
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

@@ -34,6 +34,8 @@ public:
 public:
 	virtual ~CPoolView();
 
+    virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+
 	// Generated message map functions
 protected:
 	CPoolListCtrl m_List;
@@ -41,12 +43,10 @@ protected:
 
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
-public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnEditCopy();
-	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 	afx_msg void OnViewPause();
 	afx_msg void OnUpdateViewPause(CCmdUI *pCmdUI);
 };

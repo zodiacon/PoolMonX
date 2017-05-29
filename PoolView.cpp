@@ -3,13 +3,13 @@
 //
 
 #include "stdafx.h"
+#include "resource.h"
 #include "PoolMonEx.h"
 #include "PoolView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
 
 // CPoolView
 
@@ -29,8 +29,6 @@ BEGIN_MESSAGE_MAP(CPoolView, CWnd)
 	ON_COMMAND(ID_VIEW_PAUSE, &CPoolView::OnViewPause)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_PAUSE, &CPoolView::OnUpdateViewPause)
 END_MESSAGE_MAP()
-
-
 
 // CPoolView message handlers
 
@@ -58,7 +56,7 @@ int CPoolView::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	m_List.Create(WS_CHILD | WS_VISIBLE | LVS_REPORT | LVS_SHOWSELALWAYS | LVS_SINGLESEL | WS_CLIPSIBLINGS, CRect(), this, 123);
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_AUTOSIZECOLUMNS | LVS_EX_DOUBLEBUFFER);
 
-	return 0;
+    return 0;
 }
 
 

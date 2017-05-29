@@ -18,15 +18,21 @@ public:
 	static const unsigned NonPagedBit = 0x80000000;
 
 private:
+    struct PoolTagInfo {
+        SYSTEM_POOLTAG Tag;
+        PCWSTR SourceName;
+        PCWSTR SourceDesc;
+    };
+
 	CImageList m_Images;
-	std::map<ULONG, SYSTEM_POOLTAG> m_Tags;
+	std::map<ULONG, PoolTagInfo> m_Tags;
 	std::map<std::pair<int, int>, COLORREF> m_CellColors;
 
 	int m_SortColumn = -1;
 	bool m_Ascending = true;
 
 	int AddItem(int index, const SYSTEM_POOLTAG&, PCSTR tag, bool nonpaged);
-	void UpdateItem(int index, const SYSTEM_POOLTAG& tag, bool nonpaged);
+	void UpdateItem(int index, PoolTagInfo& tag, bool nonpaged);
 	bool ProcessChanges(int row, const SYSTEM_POOLTAG& newTag, const SYSTEM_POOLTAG& oldTag, bool nonpaged);
 	void AddColor(int row, int col, COLORREF color);
 
@@ -51,7 +57,9 @@ private:
 		Diff,
 		Usage,
 		UsageKB,
-		PerAlloc
+		PerAlloc,
+        SourceName,
+        SourceDescription
 	};
 
 	bool m_Update = false;
@@ -59,6 +67,11 @@ private:
 	int m_Interval = 10000;
 	bool m_DynamicSort = true;
 	int m_IntervalIndex = 1;
+
+    std::map<std::string, std::pair<std::wstring, std::wstring>> m_PoolTagMap;
+
+private:
+    void LoadPoolTags();
 
 protected:
 	DECLARE_MESSAGE_MAP()

@@ -148,7 +148,7 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
     LTEXT           "Kernel Pool Monitor, Version 1.0",IDC_STATIC,42,14,175,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2016 by Pavel Yosifovich",IDC_STATIC,42,26,177,8
+    LTEXT           "Copyright (C) 2016-2017 by Pavel Yosifovich",IDC_STATIC,42,26,177,8
     DEFPUSHBUTTON   "OK",IDOK,103,59,50,14,WS_GROUP
 END
 
@@ -244,6 +244,14 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// TXT
+//
+
+IDR_POOLTAG             TXT                     "res\\pooltag.txt"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
@@ -254,7 +262,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDR_MAINFRAME           "Kernel Pool Monitor"
+    IDR_MAINFRAME           "Kernel Pool Monitor (C)2016-2017 by Pavel Yosifovich"
 END
 
 STRINGTABLE
