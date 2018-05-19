@@ -11,7 +11,6 @@
 #define IDI_PAGED                       311
 #define IDR_POOLTAG                     314
 #define IDC_REFRESH                     1000
-#define ID_FILE_SAVE32771               32771
 #define ID_VIEW_REFRESH                 32772
 #define ID_VIEW_PAUSE                   32773
 #define ID_VIEW_REFRESHINTERVAL         32778

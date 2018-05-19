@@ -28,6 +28,7 @@ BEGIN_MESSAGE_MAP(CPoolView, CWnd)
 	ON_COMMAND(ID_EDIT_COPY, &CPoolView::OnEditCopy)
 	ON_COMMAND(ID_VIEW_PAUSE, &CPoolView::OnViewPause)
 	ON_UPDATE_COMMAND_UI(ID_VIEW_PAUSE, &CPoolView::OnUpdateViewPause)
+	ON_COMMAND(ID_FILE_SAVE, &CPoolView::OnFileSave)
 END_MESSAGE_MAP()
 
 // CPoolView message handlers
@@ -46,7 +47,7 @@ BOOL CPoolView::PreCreateWindow(CREATESTRUCT& cs) {
 }
 
 void CPoolView::OnPaint() {
-	CPaintDC dc(this); 
+	CPaintDC dc(this);
 }
 
 int CPoolView::OnCreate(LPCREATESTRUCT lpCreateStruct) {
@@ -56,7 +57,7 @@ int CPoolView::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	m_List.Create(WS_CHILD | WS_VISIBLE | LVS_REPORT | LVS_SHOWSELALWAYS | LVS_SINGLESEL | WS_CLIPSIBLINGS, CRect(), this, 123);
 	m_List.SetExtendedStyle(LVS_EX_FULLROWSELECT | LVS_EX_AUTOSIZECOLUMNS | LVS_EX_DOUBLEBUFFER);
 
-    return 0;
+	return 0;
 }
 
 
@@ -72,14 +73,12 @@ BOOL CPoolView::OnEraseBkgnd(CDC* pDC) {
 }
 
 
-void CPoolView::OnEditCopy()
-{
+void CPoolView::OnEditCopy() {
 	// TODO: Add your command handler code here
 }
 
 
-BOOL CPoolView::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo)
-{
+BOOL CPoolView::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo) {
 	if (m_List.OnCmdMsg(nID, nCode, pExtra, pHandlerInfo))
 		return TRUE;
 
@@ -87,14 +86,53 @@ BOOL CPoolView::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* 
 }
 
 
-void CPoolView::OnViewPause()
-{
+void CPoolView::OnViewPause() {
 	m_Paused = !m_Paused;
 	m_List.Pause(m_Paused);
 }
 
 
-void CPoolView::OnUpdateViewPause(CCmdUI *pCmdUI)
-{
+void CPoolView::OnUpdateViewPause(CCmdUI *pCmdUI) {
 	pCmdUI->SetText(m_Paused ? L"Resume" : L"Pause");
+}
+
+
+void CPoolView::OnFileSave() {
+	CFileDialog dlg(FALSE, L".csv", nullptr, OFN_EXPLORER | OFN_OVERWRITEPROMPT, L"CSV Files|*.csv|All Files|*.*||", this);
+	if (dlg.DoModal() == IDOK) {
+		try {
+			CFile file(dlg.GetPathName(), CFile::modeWrite | CFile::modeCreate);
+			CArchive ar(&file, CArchive::store);
+			int column = 0;
+			TCHAR text[128];
+			while(true) {
+				LVCOLUMN col;
+				col.mask = LVCF_TEXT;
+				col.cchTextMax = 128;
+				col.pszText = text;
+				if (!m_List.GetColumn(column, &col))
+					break;
+				ar.WriteString(col.pszText);
+				ar.WriteString(L",");
+				column++;
+			}
+			ar.WriteString(L"\n");
+
+			int count = m_List.GetItemCount();
+			for (int i = 0; i < count; i++) {
+				for (int c = 0; c < column; c++) {
+					ar.WriteString(m_List.GetItemText(i, c));
+					ar.WriteString(L",");
+				}
+				ar.WriteString(L"\n");
+			}
+
+		}
+		catch (CFileException* ex) {
+			TCHAR msg[256];
+			ex->GetErrorMessage(msg, 256);
+			AfxMessageBox(msg);
+			ex->Delete();
+		}
+	}
 }

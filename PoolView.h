@@ -49,5 +49,6 @@ protected:
 	afx_msg void OnEditCopy();
 	afx_msg void OnViewPause();
 	afx_msg void OnUpdateViewPause(CCmdUI *pCmdUI);
+	afx_msg void OnFileSave();
 };
 

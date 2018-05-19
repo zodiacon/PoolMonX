@@ -63,7 +63,7 @@ int CPoolListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
     font.Detach();
 
     InsertColumn(ColumnType::TagName, L"Tag", LVCFMT_CENTER, 80);
-    InsertColumn(ColumnType::PoolType, L"Type", LVCFMT_CENTER, 80);
+    InsertColumn(ColumnType::PoolType, L"Type", LVCFMT_CENTER, 120);
     InsertColumn(ColumnType::Allocs, L"Allocs", LVCFMT_RIGHT, 100);
     InsertColumn(ColumnType::Frees, L"Frees", LVCFMT_RIGHT, 100);
     InsertColumn(ColumnType::Diff, L"Diff", LVCFMT_RIGHT, 80);
@@ -279,11 +279,11 @@ static int CompareStrings(PCWSTR s1, PCWSTR s2) {
 
 int CPoolListCtrl::OnCompareItems(LPARAM lParam1, LPARAM lParam2, int iColumn)
 {
-    ASSERT(m_Tags.find(lParam1) != m_Tags.end());
-    ASSERT(m_Tags.find(lParam2) != m_Tags.end());
+    ASSERT(m_Tags.find((ULONG)lParam1) != m_Tags.end());
+    ASSERT(m_Tags.find((ULONG)lParam2) != m_Tags.end());
 
-    const auto& info1 = m_Tags[lParam1];
-    const auto& info2 = m_Tags[lParam2];
+    const auto& info1 = m_Tags[(ULONG)lParam1];
+    const auto& info2 = m_Tags[(ULONG)lParam2];
 
     const auto& item1 = info1.Tag;
     const auto& item2 = info2.Tag;
@@ -422,7 +422,7 @@ void CPoolListCtrl::RefreshPoolData()
                     ASSERT(n >= 0);
                     if (ProcessChanges(n, item, it->second.Tag, true)) {
                         UpdateItem(n, info, true);
-                        m_Tags[lvfi.lParam] = info;
+                        m_Tags[(ULONG)lvfi.lParam] = info;
                     }
                 }
             }

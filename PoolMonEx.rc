@@ -84,7 +84,7 @@ IDR_MAINFRAME MENU
 BEGIN
     POPUP "&File"
     BEGIN
-        MENUITEM "&Save...\tCtrl+S",            ID_FILE_SAVE32771
+        MENUITEM "&Save...\tCtrl+S",            ID_FILE_SAVE
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       ID_APP_EXIT
     END
@@ -262,7 +262,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDR_MAINFRAME           "Kernel Pool Monitor (C)2016-2017 by Pavel Yosifovich"
+    IDR_MAINFRAME           "Kernel Pool Monitor v0.8 (C)2016-2018 by Pavel Yosifovich"
 END
 
 STRINGTABLE
